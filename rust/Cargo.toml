@@ -1,0 +1,7 @@
+[package]
+name = "project_name"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# example = "1.0.0"

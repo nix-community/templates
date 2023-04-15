@@ -11,15 +11,14 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
       in
-      with pkgs;
       {
-        devShells.default = mkShell {
-          nativeBuildInputs = [
+        devShells.default = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
             zig
             zls
           ];
 
-          buildInputs = [ ];
+          buildInputs = with pkgs; [ ];
         };
       }
     );

@@ -16,15 +16,14 @@
           inherit system overlays;
         };
       in
-      with pkgs;
       {
-        devShells.default = mkShell {
-          nativeBuildInputs = [
+        devShells.default = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
             rust-bin.stable.latest.default
             rust-analyzer
           ];
 
-          buildInputs = [ ];
+          buildInputs = with pkgs; [ ];
         };
       }
     );

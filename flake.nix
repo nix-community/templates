@@ -4,6 +4,7 @@
   outputs = { self }: {
     templates = rec {
       rust.path = ./rust;
+      zig.path = ./zig;
       go.path = ./go;
     };
   };

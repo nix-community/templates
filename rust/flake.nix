@@ -25,6 +25,16 @@
 
           buildInputs = with pkgs; [ ];
         };
+
+        packages.default = pkgs.rustPlatform.buildRustPackage rec {
+          name = "projectname"; # Same that is in Cargo.toml
+
+          src = ./.;
+
+          cargoLock = {
+            lockFile = ./Cargo.lock;
+          };
+        };
       }
     );
 }

@@ -7,6 +7,7 @@
       rust.path = ./rust;
       zig.path = ./zig;
       go.path = ./go;
+      python.path = ./python;
       haskell.path = ./haskell;
     };
   };

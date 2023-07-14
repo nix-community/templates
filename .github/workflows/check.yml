@@ -1,0 +1,12 @@
+name: "Check"
+on:
+  pull_request:
+  push:
+
+jobs:
+  check-flakes:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v20
+    - run: ./.github/scripts/check.sh

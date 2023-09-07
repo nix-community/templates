@@ -9,6 +9,7 @@
       go = { path = ./go; description = "Go Template"; };
       python = { path = ./python; description = "Python Template"; };
       haskell = { path = ./haskell; description = "Haskell Template"; };
+      flutter = { path = ./flutter; description = "Flutter Template"; };
     };
   };
 }

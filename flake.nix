@@ -34,7 +34,19 @@
       python = { path = ./python; description = "Python Template"; };
       haskell = { path = ./haskell; description = "Haskell Template"; };
       flutter = { path = ./flutter; description = "Flutter Template"; };
-      nextjs = { path = ./nextjs; description = "NextJS Template"; };
+      nextjs = {
+        path = ./nextjs;
+        description = "NextJS Template";
+        welcomeText = ''
+          # NextJS Template
+          A basic NextJS application template with a package build.
+
+          Comes bundled with nodejs and pnpm.
+
+          ## More info
+          - [flake-utils Github Page](https://github.com/numtide/flake-utils)
+        '';
+      };
     };
   };
 }

@@ -1,9 +1,5 @@
 {
-  description = ''
-    Run 'nix develop' to have a dev shell that has everything this project needs.
-    Run `nix build` to build this project.
-    Run `nix run` to run this project.
-  '';
+  description = "NextJS Template";
 
   inputs = {
     nixpkgs.url = "nixpkgs";
@@ -22,14 +18,13 @@
         version = "0.1.0";
         buildInputs = with pkgs; [
           nodejs_20
-          openssl
           nodePackages_latest.pnpm
         ];
         nativeBuildInputs = buildInputs;
         npmDepsHash = "<prefetch-npm-deps package-lock.json>";
       in
       {
-        devShell = pkgs.mkShell {
+        devShells.default = pkgs.mkShell {
           inherit buildInputs;
           shellHook = ''
             #!/usr/bin/env bash

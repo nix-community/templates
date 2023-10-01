@@ -14,14 +14,14 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        pname = "<same as package.json name>";
+        pname = ""; # <same as package.json name>
         version = "0.1.0";
         buildInputs = with pkgs; [
           nodejs_20
           nodePackages_latest.pnpm
         ];
         nativeBuildInputs = buildInputs;
-        npmDepsHash = "<prefetch-npm-deps package-lock.json>";
+        npmDepsHash = ""; # <prefetch-npm-deps package-lock.json>
       in
       {
         devShells.default = pkgs.mkShell {

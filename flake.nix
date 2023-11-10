@@ -47,6 +47,19 @@
           - [flake-utils Github Page](https://github.com/numtide/flake-utils)
         '';
       };
+      c = {
+        path = ./c;
+        description = "C Template";
+        welcomeText = ''
+          # C Template
+          A basic C application template with a package build.
+
+          Comes bundled with gcc.
+
+          ## More info
+          - [flake-utils Github Page](https://github.com/numtide/flake-utils)
+        '';
+      };
     };
   };
 }

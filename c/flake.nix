@@ -18,22 +18,20 @@
         version = "0.0.1";
         src = ./.;
         buildInputs = with pkgs; [
-          gcc
         ];
-        nativeBuildInputs = with pkgs; [ ];
+        nativeBuildInputs = with pkgs; [
+          # cmake
+          # autoconf-archive
+          # autoreconfHook
+          pkg-config
+        ];
       in
       {
         devShells.default = pkgs.mkShell {
           inherit buildInputs nativeBuildInputs;
-          shellHook = ''
-          '';
         };
         packages.default = pkgs.stdenv.mkDerivation {
-          inherit buildInputs pname version src;
-          buildPhase = ''
-            mkdir -p $out/bin
-            gcc main.c -o "$out/bin/${pname}"
-          '';
+          inherit buildInputs nativeBuildInputs pname version src;
         };
 
       });

@@ -13,9 +13,6 @@ LIBS =
 # This creates a list of object files from the source files
 OBJECTS = $(SOURCES:%.c=%.o)
 
-# Install dir
-PREFIX = $(out)
-
 # The first target, this will be the default target if none is specified
 # This target tells "make" to make the "all" target
 default: all
@@ -40,7 +37,7 @@ clean:
 
 install: $(pname)
 	mkdir -p $(out)/bin
-	install -m 755 $(pname) $(PREFIX)/bin/$(pname)
+	install -m 755 $(pname) $(out)/bin/$(pname)
 
 main.o: main.c
 

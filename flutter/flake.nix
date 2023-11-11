@@ -32,7 +32,7 @@
 
           ];
 
-          buildInputs = with pkgs; [
+          buildInputs = [
             androidSdk
             pkgs.flutter
             pkgs.jdk11

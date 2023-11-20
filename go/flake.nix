@@ -22,7 +22,7 @@
         };
 
         packages.default = pkgs.buildGoModule rec {
-          name = "go-template";
+          name = "template";
           src = ./.;
 
           buildInputs = with pkgs; [ ];

@@ -1,3 +1,3 @@
-module example.com/go
+module template
 
 go 1.20

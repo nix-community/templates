@@ -15,13 +15,28 @@
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
 
+        python = pkgs.python310;
+
         nativeBuildInputs = with pkgs; [
-          python310
+          python
         ];
 
         buildInputs = with pkgs; [];
       in {
         devShells.default = pkgs.mkShell {inherit nativeBuildInputs buildInputs;};
+
+        packages.default = python.pkgs.buildPythonApplication {
+          pname = "template";
+          version = "0.0.0";
+          format = "setuptools";
+
+          src = ./.;
+
+          # True if tests
+          doCheck = false;
+
+          inherit nativeBuildInputs buildInputs;
+        };
       }
     );
 }

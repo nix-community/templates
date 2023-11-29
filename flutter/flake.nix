@@ -2,13 +2,17 @@
   description = "Flutter Template";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
-    flake-utils.url = github:numtide/flake-utils;
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
+  outputs = {
+    nixpkgs,
+    flake-utils,
+    ...
+  }:
+    flake-utils.lib.eachDefaultSystem (
+      system: let
         pkgs = import nixpkgs {
           inherit system;
           config = {
@@ -20,16 +24,14 @@
         # Android config
         buildToolsVersion = "30.0.3";
         androidComposition = pkgs.androidenv.composeAndroidPackages {
-          buildToolsVersions = [ buildToolsVersion "28.0.3" ];
-          platformVersions = [ "31" "28" ];
-          abiVersions = [ "armeabi-v7a" "arm64-v8a" ];
+          buildToolsVersions = [buildToolsVersion "28.0.3"];
+          platformVersions = ["31" "28"];
+          abiVersions = ["armeabi-v7a" "arm64-v8a"];
         };
         androidSdk = androidComposition.androidsdk;
-      in
-      {
+      in {
         devShells.default = pkgs.mkShell {
           nativeBuildInputs = [
-
           ];
 
           buildInputs = [
@@ -41,4 +43,3 @@
       }
     );
 }
-

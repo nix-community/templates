@@ -1,8 +1,7 @@
 {
   description = "Nix Community Templates";
 
-  outputs = { self }: 
-  {
+  outputs = {self}: {
     templates = rec {
       empty = {
         path = ./empty;
@@ -28,13 +27,27 @@
           - [rust-overlay Github Page](https://github.com/oxalica/rust-overlay)
           - [flake-utils Github Page](https://github.com/numtide/flake-utils)
         '';
-
       };
-      zig = { path = ./zig; description = "Zig Template"; };
-      go = { path = ./go; description = "Go Template"; };
-      python = { path = ./python; description = "Python Template"; };
-      haskell = { path = ./haskell; description = "Haskell Template"; };
-      flutter = { path = ./flutter; description = "Flutter Template"; };
+      zig = {
+        path = ./zig;
+        description = "Zig Template";
+      };
+      go = {
+        path = ./go;
+        description = "Go Template";
+      };
+      python = {
+        path = ./python;
+        description = "Python Template";
+      };
+      haskell = {
+        path = ./haskell;
+        description = "Haskell Template";
+      };
+      flutter = {
+        path = ./flutter;
+        description = "Flutter Template";
+      };
       nextjs = {
         path = ./nextjs;
         description = "NextJS Template";

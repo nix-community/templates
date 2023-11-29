@@ -7,7 +7,7 @@
       description,
       path,
       buildTools ? null,
-      setupCommand ? "",
+      additionalSetupInfo ? null,
     }: {
       inherit path;
 
@@ -17,11 +17,6 @@
         # ${name}
         ${description}
 
-        To set up the project run:
-        ```sh
-            ${setupCommand}
-        ```
-
         ${
           if buildTools != null
           then ''
@@ -30,7 +25,17 @@
           ''
           else ""
         }
-
+        ${
+          if additionalSetupInfo != null
+          then ''
+            ## Additional Setup
+            To set up the project run:
+            ```sh
+            flutter create .
+            ```
+          ''
+          else ""
+        }
         ## Other tips
         If you use direnv run:
         ```sh
@@ -63,7 +68,7 @@
           A basic rust application template with a package build.
         '';
         buildTools = [
-          "The full suite of tools provides by oxalica's [rust-overlay](https://github.com/oxalica/rust-overlay)"
+          "The full suite of tools provided by oxalica's [rust-overlay](https://github.com/oxalica/rust-overlay)"
           "rust-analyzer"
         ];
       };
@@ -86,45 +91,57 @@
           "Go"
           "gopls language server"
         ];
-        setupCommand = "go mod init";
       };
-      python = {
+      python = mkWelcomeText {
         path = ./python;
-        description = "Python Template";
+        name = "Python Template";
+        description = ''
+          A basic python project
+        '';
+        buildTools = [
+          "python310"
+        ];
       };
-      haskell = {
+      haskell = mkWelcomeText {
         path = ./haskell;
-        description = "Haskell Template";
+        name = "Haskell Template";
+        description = ''
+          A basic haskell project with cabal
+        '';
+        buildTools = [
+          "Cabal"
+          "ghc"
+          "haskell-language-server"
+        ];
       };
-      flutter = {
+      flutter = mkWelcomeText {
         path = ./flutter;
-        description = "Flutter Template";
+        name = "Flutter Template";
+        description = ''
+          A flutter project template that comes bundled
+        '';
       };
-      nextjs = {
+      nextjs = mkWelcomeText {
         path = ./nextjs;
-        description = "NextJS Template";
-        welcomeText = ''
-          # NextJS Template
+        name = "NextJS Template";
+        description = ''
           A basic NextJS application template with a package build.
-
-          Comes bundled with nodejs and pnpm.
-
-          ## More info
-          - [flake-utils Github Page](https://github.com/numtide/flake-utils)
         '';
+        buildTools = [
+          "nodejs"
+          "pnpm"
+        ];
       };
-      c = {
+      c = mkWelcomeText {
         path = ./c;
-        description = "C Template";
-        welcomeText = ''
-          # C Template
+        name = "C Template";
+        description = ''
           A basic C application template with a package build.
-
-          Comes bundled with gcc.
-
-          ## More info
-          - [flake-utils Github Page](https://github.com/numtide/flake-utils)
+          Lots of comments to help you configure it to your liking.
         '';
+        buildTools = [
+          "gcc"
+        ];
       };
     };
   };

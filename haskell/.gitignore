@@ -1,0 +1,8 @@
+# Haskell
+dist*
+
+# Nix
+result*
+
+# Misc
+.direnv

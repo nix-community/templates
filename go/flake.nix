@@ -10,22 +10,21 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
-        devShells.default = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
+
+        nativeBuildInputs = with pkgs; [
             go
             gopls
-          ];
-
-          buildInputs = with pkgs; [ ];
-        };
+        ];
+        buildInputs = with pkgs; [];
+      in
+      {
+        devShells.default = pkgs.mkShell { inherit nativeBuildInputs buildInputs; };
 
         packages.default = pkgs.buildGoModule rec {
           name = "template";
           src = ./.;
-
-          buildInputs = with pkgs; [ ];
+          
+          inherit buildInputs;
 
           vendorHash = null;
         };

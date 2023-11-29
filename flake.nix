@@ -21,7 +21,7 @@
           if buildTools != null
           then ''
             Comes bundled with:
-            ${builtins.concatStringsSep "\n" buildTools}
+            ${builtins.concatStringsSep ", " buildTools}
           ''
           else ""
         }
@@ -38,14 +38,16 @@
         }
         ## Other tips
         If you use direnv run:
-        ```sh
+
+        ```
             echo "use flake" > .envrc
         ```
 
         For a quick license setup use licensor:
-        ```sh
+
+        ```
             # SPDX is the license id like MIT or GPL-3.0
-            nix-shell -p licensor --command "licensor <SPDX> > LICENSE"
+            nix-shell -p licensor --command "licensor SPDX > LICENSE"
         ```
 
         ## More info
@@ -68,7 +70,7 @@
           A basic rust application template with a package build.
         '';
         buildTools = [
-          "The full suite of tools provided by oxalica's [rust-overlay](https://github.com/oxalica/rust-overlay)"
+          "All essential rust tools"
           "rust-analyzer"
         ];
       };
@@ -79,8 +81,8 @@
           A basic Zig application template with a package build.
         '';
         buildTools = [
-          "Zig"
-          "The zig language server"
+          "zig"
+          "zls"
         ];
       };
       go = mkWelcomeText {
@@ -88,8 +90,8 @@
         name = "Go template";
         description = "A basic go project";
         buildTools = [
-          "Go"
-          "gopls language server"
+          "go"
+          "gopls"
         ];
       };
       python = mkWelcomeText {
@@ -109,7 +111,7 @@
           A basic haskell project with cabal
         '';
         buildTools = [
-          "Cabal"
+          "cabal"
           "ghc"
           "haskell-language-server"
         ];

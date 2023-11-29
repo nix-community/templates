@@ -14,16 +14,15 @@
     flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        devShells.default = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
-            cabal-install
-            ghc
-            haskell-language-server
-          ];
+        nativeBuildInputs = with pkgs; [
+          cabal-install
+          ghc
+          haskell-language-server
+        ];
 
-          buildInputs = with pkgs; [];
-        };
+        buildInputs = with pkgs; [];
+      in {
+        devShells.default = pkgs.mkShell {inherit nativeBuildInputs buildInputs;};
       }
     );
 }

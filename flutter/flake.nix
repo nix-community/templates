@@ -20,6 +20,14 @@
             allowUnfree = true;
           };
         };
+        nativeBuildInputs = [
+        ];
+
+        buildInputs = [
+          androidSdk
+          pkgs.flutter
+          pkgs.jdk11
+        ];
 
         # Android config
         buildToolsVersion = "30.0.3";
@@ -30,16 +38,7 @@
         };
         androidSdk = androidComposition.androidsdk;
       in {
-        devShells.default = pkgs.mkShell {
-          nativeBuildInputs = [
-          ];
-
-          buildInputs = [
-            androidSdk
-            pkgs.flutter
-            pkgs.jdk11
-          ];
-        };
+        devShells.default = pkgs.mkShell {inherit nativeBuildInputs buildInputs;};
       }
     );
 }

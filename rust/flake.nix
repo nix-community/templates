@@ -20,24 +20,24 @@
         pkgs = import nixpkgs {
           inherit system overlays;
         };
-      in {
-        devShells.default = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
-            rust-bin.stable.latest.default
-            rust-analyzer
-          ];
 
-          buildInputs = with pkgs; [];
-        };
+        nativeBuildInputs = with pkgs; [
+          rust-bin.stable.latest.default
+          rust-analyzer
+        ];
+
+        buildInputs = with pkgs; [];
+      in {
+        devShells.default = pkgs.mkShell {inherit nativeBuildInputs buildInputs;};
 
         packages.default = pkgs.rustPlatform.buildRustPackage rec {
           name = "projectname"; # Same that is in Cargo.toml
-
           src = ./.;
-
           cargoLock = {
             lockFile = ./Cargo.lock;
           };
+
+          inherit buildInputs;
         };
       }
     );

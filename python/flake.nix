@@ -14,14 +14,14 @@
     flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        devShells.default = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
-            python310
-          ];
 
-          buildInputs = with pkgs; [];
-        };
+        nativeBuildInputs = with pkgs; [
+          python310
+        ];
+
+        buildInputs = with pkgs; [];
+      in {
+        devShells.default = pkgs.mkShell {inherit nativeBuildInputs buildInputs;};
       }
     );
 }

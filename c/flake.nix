@@ -10,12 +10,15 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    flake-utils,
-  }:
-  # For more information about the C/C++ infrastructure in nixpkgs: https://nixos.wiki/wiki/C
-    flake-utils.lib.eachDefaultSystem (system: let
+  outputs =
+    { self
+    , nixpkgs
+    , flake-utils
+    , ...
+    }:
+    # For more information about the C/C++ infrastructure in nixpkgs: https://nixos.wiki/wiki/C
+    flake-utils.lib.eachDefaultSystem (system:
+    let
       pkgs = nixpkgs.legacyPackages.${system};
       pname = "hello-world"; #package name
       version = "0.0.1";
@@ -39,7 +42,8 @@
         # Also start your IDE/editor from the shell provided by `nix develop` as the wrapped clangd from clang-tools needs environment variables set by the shell
         #clang-tools
       ];
-    in {
+    in
+    {
       devShells.default = pkgs.mkShell {
         inherit buildInputs nativeBuildInputs;
 

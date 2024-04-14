@@ -1,43 +1,43 @@
 {
-  description = "Rust Template";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-
-    rust-overlay.url = "github:oxalica/rust-overlay";
+    naersk.url = "github:nix-community/naersk";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    fenix.url = "github:nix-community/fenix";
   };
 
   outputs = {
-    nixpkgs,
-    rust-overlay,
+    self,
     flake-utils,
-    ...
+    naersk,
+    nixpkgs,
+    fenix,
   }:
     flake-utils.lib.eachDefaultSystem (
       system: let
-        overlays = [(import rust-overlay)];
-        pkgs = import nixpkgs {
-          inherit system overlays;
+        pkgs = (import nixpkgs) {
+          inherit system;
+          overlays = [fenix.overlays.default];
         };
 
-        nativeBuildInputs = with pkgs; [
-          rust-bin.stable.latest.default
-          rust-analyzer
-        ];
-
-        buildInputs = with pkgs; [];
-      in {
-        devShells.default = pkgs.mkShell {inherit nativeBuildInputs buildInputs;};
-
-        packages.default = pkgs.rustPlatform.buildRustPackage rec {
-          name = "projectname"; # Same that is in Cargo.toml
+        naersk' = pkgs.callPackage naersk {};
+      in rec {
+        defaultPackage = naersk'.buildPackage {
           src = ./.;
-          cargoLock = {
-            lockFile = ./Cargo.lock;
-          };
+        };
 
-          inherit buildInputs;
+        devShell = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
+            alejandra
+            rust-analyzer
+            (pkgs.fenix.stable.withComponents [
+              "cargo"
+              "clippy"
+              "rust-src"
+              "rustc"
+              "rustfmt"
+            ])
+          ];
         };
       }
     );

@@ -1,34 +1,43 @@
 const std = @import("std");
 
-pub fn build(b: *std.build.Builder) void {
-    // Standard target options allows the person running `zig build` to choose
-    // what target to build for. Here we do not override the defaults, which
-    // means any target is allowed, and the default is native. Other options
-    // for restricting supported target set are available.
+pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
+    const optimize = b.standardOptimizeOption(.{});
 
-    // Standard release options allow the person running `zig build` to select
-    // between Debug, ReleaseSafe, ReleaseFast, and ReleaseSmall.
-    const mode = b.standardReleaseOptions();
+    const exe = b.addExecutable(.{
+        .name = "zig-binary",
+        .root_source_file = b.path("src/main.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
 
-    const exe = b.addExecutable("zig", "src/main.zig");
-    exe.setTarget(target);
-    exe.setBuildMode(mode);
-    exe.install();
+    b.installArtifact(exe);
 
-    const run_cmd = exe.run();
-    run_cmd.step.dependOn(b.getInstallStep());
-    if (b.args) |args| {
-        run_cmd.addArgs(args);
-    }
+    // run step
+    const run_exe = b.addRunArtifact(exe);
+    const run_step = b.step("run", "Run the binary");
+    run_step.dependOn(&run_exe.step);
 
-    const run_step = b.step("run", "Run the app");
-    run_step.dependOn(&run_cmd.step);
-
-    const exe_tests = b.addTest("src/main.zig");
-    exe_tests.setTarget(target);
-    exe_tests.setBuildMode(mode);
-
+    // test step
+    const test_targets = [_]std.Target.Query{
+        .{}, //native
+        // Add other test targets, for example x86_64 linux
+        // .{
+        //     .cpu_arch = .x86_64,
+        //     .os_tag = .linux,
+        // },
+    };
     const test_step = b.step("test", "Run unit tests");
-    test_step.dependOn(&exe_tests.step);
+    for (test_targets) |test_target| {
+        const unit_tests = b.addTest(.{
+            .root_source_file = b.path("src/main.zig"),
+            .target = b.resolveTargetQuery(test_target),
+        });
+
+        const run_unit_tests = b.addRunArtifact(unit_tests);
+        // only run tests considered non-foreign.
+        // -fqemu and -fwasmtime command-line arguments may affect which tests run
+        run_unit_tests.skip_foreign_checks = true;
+        test_step.dependOn(&run_unit_tests.step);
+    }
 }

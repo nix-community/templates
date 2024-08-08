@@ -1,5 +1,6 @@
 # Zig
 zig-*
+.zig-*
 
 # Nix
 result*

@@ -1,0 +1,11 @@
+# Nix
+result*
+
+# Misc
+.direnv
+
+# Gleam
+*.beam
+*.ez
+/build
+erl_crash.dump

@@ -85,6 +85,15 @@
           "zls"
         ];
       };
+      gleam = mkWelcomeText {
+        path = ./gleam;
+        name = "Gleam template";
+        description = ''A basic Gleam project'';
+        buildTools = [
+          "gleam"
+          "erlang_27"
+        ];
+      };
       go = mkWelcomeText {
         path = ./go;
         name = "Go template";

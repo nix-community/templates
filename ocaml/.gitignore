@@ -1,0 +1,8 @@
+# Nix
+result*
+
+# OCaml
+_build/**
+
+# Misc
+.direnv

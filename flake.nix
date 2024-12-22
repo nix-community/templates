@@ -103,6 +103,15 @@
           "gopls"
         ];
       };
+      ocaml = mkWelcomeText {
+        path = ./ocaml;
+        name = "OCaml template";
+        description = ''A basic OCaml template with Dune.'';
+        buildTools = [
+          "ocaml"
+          "dune_3"
+        ];
+      };
       python = mkWelcomeText {
         path = ./python;
         name = "Python Template";

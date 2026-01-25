@@ -1,0 +1,8 @@
+# Nix
+result*
+
+# Java
+target/
+
+# Misc
+.direnv

@@ -163,6 +163,17 @@
           "gcc"
         ];
       };
+      java = mkWelcomeText {
+        path = ./java;
+        name = "Java Template";
+        description = ''
+          A basic Java project template with JDK and JDT language server configured.
+        '';
+        buildTools = [
+          "javaPackages.compiler.openjdk21"
+          "jdt-language-server"
+        ];
+      };
     };
   };
 }

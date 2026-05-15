@@ -33,7 +33,7 @@
           # the dune build system
           ocamlPackages.dune_3
 
-          # If you're on NixOS, you'll probably want this (See: https://nixos.wiki/wiki/OCaml#Findlib.2C_ocamlfind)
+          # If you're on NixOS, you'll probably want this (See: https://wiki.nixos.org/wiki/OCaml#Manual_build_with_ocamlc,_findlib,_ocamlfind)
           # ocamlPackages.findlib
 
           # Additionally, add any development packages you want

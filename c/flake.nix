@@ -16,7 +16,7 @@
     , flake-utils
     , ...
     }:
-    # For more information about the C/C++ infrastructure in nixpkgs: https://nixos.wiki/wiki/C
+    # For more information about the C/C++ infrastructure in nixpkgs: https://wiki.nixos.org/wiki/C
     flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = nixpkgs.legacyPackages.${system};
@@ -26,7 +26,7 @@
       buildInputs = with pkgs; [
         # add library dependencies here i.e.
         #zlib
-        # Tipp: you can use `nix-locate foo.h` to find the package that provides a header file, see https://github.com/nix-community/nix-index
+        # Tip: you can use `nix-locate foo.h` to find the package that provides a header file, see https://github.com/nix-community/nix-index
       ];
       nativeBuildInputs = with pkgs; [
         # add build dependencies here
